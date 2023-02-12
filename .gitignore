@@ -1,0 +1,10 @@
+.env
+staticfiles
+media
+
+
+# celery beat 
+celerybeat*
+
+#redis
+dump.rdb

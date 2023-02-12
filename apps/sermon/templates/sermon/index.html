@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href="{% static 'sermon/css/sermon.css' %}"> {% endblock style %}
+{% block title %}Believe - Sermons {% endblock title %}
+
+{% block content %}
+<section id="today-sermon-wrapper" class="sermon-wrapper">
+    <div class="container">
+        <div class="today-sermon-container">
+            <div class="center">
+                <img src="{% static 'sermon/images/church_3.png' %}" alt="Bible">
+                <h1>Today's Sermon</h1>
+                <p class="heading-subtitle">God loves us all</p>
+            </div>
+            {% with today_sermon as ts %}
+            <div class="two-equ-cols-container">
+                <div class="sermon-image">
+                    <img src="{{ ts.image.url }}" alt="sermon image">
+                </div>
+
+                <div class="sermon-details">
+                    <h3><a href="{{ ts.get_absolute_url }}">{{ ts.title }}</a></h3>
+                    <div class="semon-info">
+                        <p>Sermon by: <span class="red-text">{{ ts.author.first_name }} {{ ts.author.last_name }}</span></p>
+                        <p>Tags: <span class="red-text">{{ ts.tags.all|join:", " }}</span></p>
+                        <p>Date: <span class="red-text">{{ ts.date_created|date:"l j F, Y"  }}</span></p>
+                        <p>View: <span class="red-text">{{ total_views  }}  View{{ total_views|pluralize  }}</span></p>
+                    </div>
+
+                    <div class="description">
+                        {{ ts.summary }}
+                    </div>
+
+                    <ul class="sermon-actions">
+                        <li><img src="{% static 'sermon/images/sermon_1.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_2.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_3.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_4.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_5.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_6.svg' %}" alt=""></li>
+                    </ul>
+                </div>
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- popular sermons section  -->
+<section id="popular-sermon-wrapper" class="sermon-wrapper">
+    <div class="container">
+        <div class="today-sermon-container">
+            <div class="center">
+                <img src="{% static 'sermon/images/church_7.png' %}" alt="Bible">
+                <h1>Popular Sermons</h1>
+                <p class="heading-subtitle">God loves us all</p>
+            </div>
+
+            <div class="two-equ-cols-container">
+                {% with popular_sermons as ps %}
+                {% for s in ps %}
+                <div class="sermon-details">
+                    <img src="{{ s.image.url }}" alt="sermon image">
+                    <h3><a href="{{ s.get_absolute_url }}">{{ s.title }}</a></h3>
+                    <div class="semon-info">
+                        <p>Sermon by: <span class="red-text">{{ s.author.first_name }} {{ s.author.last_name }}</span></p>
+                        <p>Tags: <span class="red-text">{{ s.tags.all|join:", " }}</span></p>
+                        <p>Date: <span class="red-text">{{ s.date_created|date:"l j F, Y"  }}</span></p>
+                    </div>
+
+                    <div class="description">
+                        {{ s.summary }}
+                    </div>
+
+                    <ul class="sermon-actions">
+                        <li><img src="{% static 'sermon/images/sermon_1.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_2.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_3.svg' %}" alt=""></li>
+                        <a href="{% url 'sermon:sermon_pdf' s.id %}">
+                            <li><img src="{% static 'sermon/images/sermon_4.svg' %}" alt=""></li>
+                        </a>
+                        <li><img src="{% static 'sermon/images/sermon_5.svg' %}" alt=""></li>
+                        <li><img src="{% static 'sermon/images/sermon_6.svg' %}" alt=""></li>
+                    </ul>
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- similar sermons section  -->
+<section id="related-sermon-wrapper" class="sermon-wrapper">
+    
+    <div class="today-sermon-container">
+        <div class="center">
+            <h1>Similar Sermons</h1>
+            <p class="heading-subtitle">Recommended</p>
+        </div>
+
+        {% with similar_sermons as ss %}
+        <div class="two-equ-cols-container">
+            {% for s in ss %}
+            <div class="sermon-details">
+                <h3><a href="{{ s.get_absolute_url }}">{{ s.title }}</a></h3>
+                <div class="semon-info">
+                    <p>Sermon by: <span class="red-text">{{ s.author.first_name }} {{ s.author.last_name }}</span></p>
+                    <p>Tags: <span class="red-text">{{ s.tags.all|join:", " }}</span></p>
+                    <p>Date: <span class="red-text">{{ s.date_created|date:"l j F, Y"  }}</span></p>
+                </div>
+
+                <div class="description">
+                   {{ s.summary }}
+                </div>
+
+                <ul class="sermon-actions">
+                    <li><img src="{% static 'sermon/images/sermon_1.svg' %}" alt=""></li>
+                    <li><img src="{% static 'sermon/images/sermon_2.svg' %}" alt=""></li>
+                    <li><img src="{% static 'sermon/images/sermon_3.svg' %}" alt=""></li>
+                    <li><img src="{% static 'sermon/images/sermon_4.svg' %}" alt=""></li>
+                    <li><img src="{% static 'sermon/images/sermon_5.svg' %}" alt=""></li>
+                    <li><img src="{% static 'sermon/images/sermon_6.svg' %}" alt=""></li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endwith %}
+    </div>
+    
+</section>
+{% endblock content %}

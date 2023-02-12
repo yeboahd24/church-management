@@ -22,12 +22,6 @@ This is a church management website created with Django.
 - [x] Simple Recommender System
 - [x] Simple Ranking System
 
-# Database
-Postgresql
 
-# Technologies Used
-- AWS S3 for serving static files & file upload
-- Redis for Caching, Message Broker and Leader board
 
-# Video Demo
 
